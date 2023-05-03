@@ -6,9 +6,9 @@ RUN apk --no-cache add git python3 py-lxml \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /
-RUN git clone https://github.com/stamparm/DSVW
+RUN git clone https://github.com/vbolzani/DSVW_LetsBit
 
-WORKDIR /DSVW
+WORKDIR /DSVW_LetsBit
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' dsvw.py
 
 EXPOSE 65412
