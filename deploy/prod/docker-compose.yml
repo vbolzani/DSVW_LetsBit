@@ -4,4 +4,13 @@ services:
   dsvw:
     image: vbolzanifg/dsvw-letsbit:latest
     ports:
-      - 80:65412
+      - 65412:65412
+  
+  waf:
+    image: owasp/modsecurity-crs:nginx
+    enviroment:
+      - BACKEND=http://dsvw:65412
+      - MODSEC_AUDIT_ENGINE=On
+      - PARANOIA=3
+    ports:
+      - 80:80
