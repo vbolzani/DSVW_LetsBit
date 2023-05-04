@@ -59,9 +59,30 @@ jobs:
         - name: ZAP Scan
           uses: zaproxy/action-baseline@master
           with:
-            token: ${{ secrets.GITHUB_TOKEN }}
+            token: ${{ secrets.NOTIFICATIONS_ACCESS_GIT }}
             target: http://dsvw-test.us-east-1.elasticbeanstalk.com/
             cmd_options: '-a'
             fail_action: 'false'
             issue_title: 'Analisis de seguridad en entorno de test'
 
+    deploy_prod:
+      runs-on: ubuntu-latest
+      needs: build_and_push
+    
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+    
+        - name: Deploy package generation
+          run: zip -j deploy.zip ./deploy/prod/*
+    
+        - name: Deploy
+          uses: einaregilsson/beanstalk-deploy@v21
+          with:
+            aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+            aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+            application_name: dsvw-test
+            environment_name: Dsvw-prod-env
+            version_label: ${{ github.sha }}-prod
+            region: us-east-1
+            deployment_package: deploy.zip

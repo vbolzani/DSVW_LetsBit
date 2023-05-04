@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  dsvw:
+    image: vbolzanifg/dsvw-letsbit:latest
+    ports:
+      - 80:65412
