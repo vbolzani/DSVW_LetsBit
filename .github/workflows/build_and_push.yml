@@ -52,3 +52,16 @@ jobs:
         - name: Healthcheck
           run: curl http://dsvw-test.us-east-1.elasticbeanstalk.com/
 
+    dast-test:
+      runs-on: ubuntu-latest
+      needs: healthcheck_test
+      steps:
+        - name: ZAP Scan
+          uses: zaproxy/action-baseline@master
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            target: http://dsvw-test.us-east-1.elasticbeanstalk.com/
+            cmd_options: '-a'
+            fail_action: 'false'
+            issue_title: 'Analisis de seguridad en entorno de test'
+
