@@ -1,0 +1,49 @@
+name: "SAST"
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    SonarCloud:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: SonarCloud SAST
+          uses: sonarsource/sonarcloud-github-action@master
+          env:
+            GITHUB_TOKEN: ${{ secrets.NOTIFICATIONS_ACCESS_GIT }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          with:
+            args: >
+                -Dsonar.organization=vbolzani
+                -Dsonar.projectKey=dsvw-letsbit
+
+    pysa:
+        runs-on: ubuntu-latest
+        permissions: write-all
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            
+            - name: Pysa action
+              uses: facebook/pysa-action@main
+              with:
+                repo-directory: './'
+                requirements-path: 'requirements.txt'
+                infer-types: true
+
+    pylint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup python
+              uses: actions/setup-python@v2
+              
+            - run: pip install pylint
+            - run: pylint **/*.py
