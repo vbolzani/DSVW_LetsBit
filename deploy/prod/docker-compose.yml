@@ -12,5 +12,7 @@ services:
       - BACKEND=http://dsvw:65412
       - MODSEC_AUDIT_ENGINE=On
       - PARANOIA=3
+    volumes:
+      - ./PATCH_RULES.conf:/etc/modsecurity.d/owasp-crs/rules/PATCH_RULES.conf
     ports:
       - 80:80

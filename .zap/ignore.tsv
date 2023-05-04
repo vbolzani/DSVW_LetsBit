@@ -1,0 +1,13 @@
+10038	IGNORE	(Content Security Policy (CSP) Header Not Set)
+10020	IGNORE	(Missing Anti-clickjacking Header)
+10009	IGNORE	(In Page Banner Information Leak)
+10063	IGNORE	(Permissions Policy Header Not Set)
+10031	IGNORE	(User Controllable HTML Element Attribute)
+10030	IGNORE	(User Controllable Charset)
+10021	IGNORE	(X-Content-Type-Options Header Missing)
+10036	IGNORE	(Server Leaks Version Information via "Server" HTTP Response Header Field)
+10094	IGNORE	(Base64 Disclosure)
+10024	IGNORE	(Information Disclosure - Sensitive Information in URL)
+10027	IGNORE	(Information Disclosure - Suspicious Comments)
+10049	IGNORE	(Non-Storable Content)
+
